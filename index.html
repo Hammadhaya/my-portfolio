@@ -1136,7 +1136,6 @@
               <h3>Get In Touch</h3>
               <p>Send me a message to discuss your project requirements or collaboration opportunities.</p>
               <form action="https://formspree.io/f/mzzgaedy" method="post" class="php-email-form" onsubmit="handleFormSubmit(event)">
-                <!-- <input type="hidden" name="_redirect" value="http://localhost/port/thank-you.html"> -->
                 <div class="row gy-4">
                   <div class="col-md-6">
                     <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
@@ -1207,27 +1206,55 @@
 <script>
   function handleFormSubmit(event) {
     event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
+    // Stop the template's validate.js handler from also firing — it expects a
+    // plain-text "OK" reply and would double-submit and show a false error.
+    event.stopImmediatePropagation();
+
+    var form = event.target;
+    var loading = form.querySelector('.loading');
+    var errorMessage = form.querySelector('.error-message');
+    var sentMessage = form.querySelector('.sent-message');
+
+    if (loading) loading.classList.add('d-block');
+    if (errorMessage) { errorMessage.classList.remove('d-block'); errorMessage.textContent = ''; }
+    if (sentMessage) sentMessage.classList.remove('d-block');
 
     fetch(form.action, {
       method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-        window.location.href = 'http://localhost/port/thank-you.html';
-      } else {
-        alert('There was an error sending your message. Please try again.');
+    .then(function (response) {
+      if (loading) loading.classList.remove('d-block');
+
+      if (response.ok) {
+        if (sentMessage) sentMessage.classList.add('d-block');
+        form.reset();
+        // Relative path resolves correctly on any host or domain.
+        setTimeout(function () { window.location.href = 'thank-you.html'; }, 1200);
+        return;
       }
+
+      // Try to surface a helpful validation message from Formspree.
+      return response.json().then(function (data) {
+        var msg = 'Oops! There was a problem sending your message. Please try again.';
+        if (data && data.errors && data.errors.length) {
+          msg = data.errors.map(function (e) { return e.message; }).join(', ');
+        }
+        if (errorMessage) { errorMessage.textContent = msg; errorMessage.classList.add('d-block'); }
+      }).catch(function () {
+        if (errorMessage) {
+          errorMessage.textContent = 'Oops! There was a problem sending your message. Please try again.';
+          errorMessage.classList.add('d-block');
+        }
+      });
     })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred. Please check the console for details.');
+    .catch(function () {
+      if (loading) loading.classList.remove('d-block');
+      if (errorMessage) {
+        errorMessage.textContent = 'A network error occurred. Please check your connection and try again.';
+        errorMessage.classList.add('d-block');
+      }
     });
   }
 </script>
