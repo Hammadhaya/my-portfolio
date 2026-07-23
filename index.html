@@ -12,7 +12,7 @@
   <meta name="author" content="Hammad Hayat">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://hammadhaya.github.io/my-portfolio/">
-  <meta name="theme-color" content="#0f1626">
+  <meta name="theme-color" content="#1f1f1f">
 
   <!-- Open Graph (LinkedIn, Facebook, WhatsApp link previews) -->
   <meta property="og:type" content="website">
@@ -157,23 +157,24 @@
   font-size: 20px; /* Adjust size if needed */
 }
 
-/* ===== Stat cards ===== */
+/* ===== Stat cards (brand-matched: dark surface + monochrome accent) ===== */
 .stats .stats-wrapper { gap: 22px; }
 .stats .stats-item {
   min-width: 200px;
   padding: 28px 26px;
-  background: #ffffff;
-  border: 1px solid rgba(20, 40, 80, 0.07);
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(20, 40, 80, 0.05);
-  transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 .stats .stats-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(20, 40, 80, 0.10);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 45%);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
 }
 .stats .stats-item .icon-wrapper { margin-bottom: 6px; }
-.stats .stats-item .icon-wrapper i { font-size: 1.85rem; color: #2f6fed; }
+.stats .stats-item .icon-wrapper i { font-size: 1.85rem; color: var(--accent-color); }
 .stats .stats-item .stat-value {
   display: flex;
   align-items: baseline;
@@ -182,13 +183,22 @@
   margin-top: 4px;
   line-height: 1;
   font-weight: 700;
-  color: #1b2434;
+  color: var(--heading-color);
   white-space: nowrap;
 }
 .stats .stats-item .stat-value .purecounter,
 .stats .stats-item .stat-value .stat-num { font-size: 2.5rem; }
-.stats .stats-item .stat-value .stat-suffix { font-size: 1.4rem; font-weight: 700; color: #2f6fed; }
-.stats .stats-item .stat-label { margin: 12px 0 0; font-size: .92rem; font-weight: 500; color: #6b7890; }
+.stats .stats-item .stat-value .stat-suffix {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.stats .stats-item .stat-label {
+  margin: 12px 0 0;
+  font-size: .92rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
 
 /* ===== Portfolio: collapsible "Show more" ===== */
 .portfolio-collapse {
@@ -202,8 +212,8 @@
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 140px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+  height: 150px;
+  background: linear-gradient(to bottom, transparent, var(--background-color));
   pointer-events: none;
 }
 .portfolio-more-wrap { text-align: center; margin-top: 26px; }
@@ -211,18 +221,22 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 12px 30px;
-  border: none;
+  padding: 12px 32px;
+  border: 1px solid var(--accent-color);
   border-radius: 30px;
   cursor: pointer;
   font-size: .96rem;
-  font-weight: 500;
-  color: #ffffff;
-  background: linear-gradient(180deg, #4c8dff, #2f6fed);
-  box-shadow: 0 10px 26px rgba(47, 111, 237, 0.32);
-  transition: transform .18s ease, box-shadow .25s ease;
+  font-weight: 600;
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent-color), transparent 78%);
+  transition: transform .18s ease, background-color .25s ease, box-shadow .25s ease;
 }
-.portfolio-more-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(47, 111, 237, 0.44); }
+.portfolio-more-btn:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent-color), black 10%);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--accent-color), transparent 68%);
+}
 .portfolio-more-btn:active { transform: translateY(0); }
 .portfolio-more-btn .chev { transition: transform .3s ease; }
 .portfolio-more-btn.is-open .chev { transform: rotate(180deg); }
