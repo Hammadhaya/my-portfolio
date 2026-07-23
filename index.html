@@ -1228,10 +1228,8 @@
       if (loading) loading.classList.remove('d-block');
 
       if (response.ok) {
-        if (sentMessage) sentMessage.classList.add('d-block');
-        form.reset();
-        // Relative path resolves correctly on any host or domain.
-        setTimeout(function () { window.location.href = 'thank-you.html'; }, 1200);
+        // Go straight to the thank-you page (no inline success message).
+        window.location.href = 'thank-you.html';
         return;
       }
 

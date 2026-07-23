@@ -3,69 +3,259 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - Hammad Hayat</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>Thank You · Hammad Hayat</title>
+  <link rel="icon" href="img/user-icon.png" type="image/png">
+
+  <!-- Same type family as the main portfolio, with a solid system fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg-0: #0a0e17;
+      --bg-1: #0f1626;
+      --card: rgba(255, 255, 255, 0.035);
+      --card-border: rgba(255, 255, 255, 0.09);
+      --text: #eaf0fb;
+      --muted: #98a6c0;
+      --accent: #4c8dff;
+      --accent-strong: #2f6fed;
+      --radius-card: 22px;
+      --radius-btn: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa;
-      color: #212529;
       margin: 0;
-      padding: 0;
+      font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1100px 620px at 50% -8%, rgba(76, 141, 255, 0.16), transparent 60%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 62%);
+      background-color: var(--bg-0);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .stage {
+      position: relative;
+      min-height: 100dvh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      justify-content: center;
+      padding: 40px 22px;
+      overflow: hidden;
     }
-    .container {
-      text-align: center;
-      padding: 40px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+
+    /* Soft focal glow behind the confirmation card */
+    .glow {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      width: min(560px, 82vw);
+      height: min(560px, 82vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(76, 141, 255, 0.28), transparent 68%);
+      filter: blur(30px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
       width: 100%;
+      max-width: 560px;
+      text-align: center;
+      padding: clamp(34px, 5vw, 56px) clamp(24px, 5vw, 52px);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 30px 80px rgba(3, 8, 20, 0.55);
+      animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
+
+    /* Animated success check */
+    .check {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 26px;
+    }
+    .check svg { width: 100%; height: 100%; overflow: visible; }
+    .check__ring,
+    .check__tick {
+      fill: none;
+      stroke: var(--accent);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .check__ring {
+      stroke-width: 4;
+      stroke-dasharray: 210;
+      stroke-dashoffset: 210;
+      animation: draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards;
+      opacity: 0.9;
+    }
+    .check__tick {
+      stroke-width: 5;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: draw 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 12.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+
     h1 {
-      color: #007bff;
-      font-size: 2.5em;
-      margin-bottom: 20px;
+      font-family: 'Ubuntu', 'Roboto', system-ui, sans-serif;
+      margin: 0 0 16px;
+      font-weight: 700;
+      font-size: clamp(2.1rem, 6vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
     }
-    p {
-      font-size: 1.2em;
-      color: #666;
-      margin-bottom: 30px;
+    h1 .dot { color: var(--accent); }
+
+    .lead {
+      margin: 0 auto 14px;
+      max-width: 42ch;
+      font-size: clamp(1rem, 2.4vw, 1.12rem);
+      line-height: 1.6;
+      color: #cdd6e8;
     }
+
+    .meta {
+      margin: 0 auto 32px;
+      max-width: 40ch;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
     .btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background-color: #007bff;
-      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 26px;
+      border-radius: var(--radius-btn);
+      font-size: 0.98rem;
+      font-weight: 500;
       text-decoration: none;
-      border-radius: 5px;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
+      line-height: 1;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
-    .btn:hover {
-      background-color: #0056b3;
+    .btn svg { width: 17px; height: 17px; }
+    .btn:active { transform: translateY(1px) scale(0.99); }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .btn--primary {
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+      box-shadow: 0 10px 26px rgba(47, 111, 237, 0.38);
     }
-    @media (max-width: 768px) {
-      .container {
-        padding: 20px;
-      }
-      h1 {
-        font-size: 2em;
-      }
-      p {
-        font-size: 1em;
-      }
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(47, 111, 237, 0.46);
+    }
+
+    .btn--ghost {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .btn--ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .foot {
+      position: relative;
+      z-index: 1;
+      margin-top: 30px;
+      font-size: 0.82rem;
+      color: rgba(152, 166, 192, 0.7);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px) scale(0.985); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; }
+      .check__ring, .check__tick { animation: none; stroke-dashoffset: 0; }
+    }
+
+    @media (max-width: 420px) {
+      .actions { flex-direction: column; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Thank You!</h1>
-    <p>Your message has been successfully sent. I will get back to you soon. Feel free to explore more of my work or contact me again if needed.</p>
-    <a href="index.html" class="btn">Back to Home</a>
-  </div>
+  <main class="stage">
+    <div class="glow" aria-hidden="true"></div>
+
+    <section class="card" role="status" aria-live="polite">
+      <div class="check" aria-hidden="true">
+        <svg viewBox="0 0 72 72">
+          <circle class="check__ring" cx="36" cy="36" r="33"></circle>
+          <path class="check__tick" d="M22 37.5 L32 47.5 L51 26"></path>
+        </svg>
+      </div>
+
+      <p class="eyebrow">Message received</p>
+      <h1>Thank you<span class="dot">.</span></h1>
+      <p class="lead">Your message just landed in my inbox. I'll get back to you within 24 to 48 hours.</p>
+      <p class="meta">Thanks for reaching out. In the meantime, feel free to explore more of my work or connect with me directly.</p>
+
+      <div class="actions">
+        <a class="btn btn--primary" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+          Back to portfolio
+        </a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/hammad-hayat-9bb264206/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C21.4 8.75 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3-2 0-2.3 1.56-2.3 3.2V21h-4z"></path></svg>
+          Connect on LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <footer class="foot">© <span id="yr">2026</span> Hammad Hayat · Full Stack Developer</footer>
+  </main>
+
+  <script>
+    // Keep the copyright year current without hardcoding it.
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
