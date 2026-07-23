@@ -156,6 +156,76 @@
 .social-links .teams-logo i.bi-microsoft {
   font-size: 20px; /* Adjust size if needed */
 }
+
+/* ===== Stat cards ===== */
+.stats .stats-wrapper { gap: 22px; }
+.stats .stats-item {
+  min-width: 200px;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 1px solid rgba(20, 40, 80, 0.07);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(20, 40, 80, 0.05);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.stats .stats-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(20, 40, 80, 0.10);
+}
+.stats .stats-item .icon-wrapper { margin-bottom: 6px; }
+.stats .stats-item .icon-wrapper i { font-size: 1.85rem; color: #2f6fed; }
+.stats .stats-item .stat-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 4px;
+  line-height: 1;
+  font-weight: 700;
+  color: #1b2434;
+  white-space: nowrap;
+}
+.stats .stats-item .stat-value .purecounter,
+.stats .stats-item .stat-value .stat-num { font-size: 2.5rem; }
+.stats .stats-item .stat-value .stat-suffix { font-size: 1.4rem; font-weight: 700; color: #2f6fed; }
+.stats .stats-item .stat-label { margin: 12px 0 0; font-size: .92rem; font-weight: 500; color: #6b7890; }
+
+/* ===== Portfolio: collapsible "Show more" ===== */
+.portfolio-collapse {
+  position: relative;
+  overflow: hidden;
+  max-height: 900px;
+  transition: max-height .55s ease;
+}
+.portfolio-collapse.expanded { max-height: 8000px; }
+.portfolio-collapse:not(.expanded)::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+  pointer-events: none;
+}
+.portfolio-more-wrap { text-align: center; margin-top: 26px; }
+.portfolio-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: .96rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: linear-gradient(180deg, #4c8dff, #2f6fed);
+  box-shadow: 0 10px 26px rgba(47, 111, 237, 0.32);
+  transition: transform .18s ease, box-shadow .25s ease;
+}
+.portfolio-more-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(47, 111, 237, 0.44); }
+.portfolio-more-btn:active { transform: translateY(0); }
+.portfolio-more-btn .chev { transition: transform .3s ease; }
+.portfolio-more-btn.is-open .chev { transform: rotate(180deg); }
   </style>
 </head>
 <body class="index-page">
@@ -337,53 +407,31 @@
 
 <div class="row justify-content-center">
   <div class="col-lg-10">
-    <div class="stats-wrapper d-flex flex-wrap justify-content-center gap-4">
+    <div class="stats-wrapper d-flex flex-wrap justify-content-center">
 
-      <!-- Happy Clients -->
-     <div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="150">
-  <div class="icon-wrapper mb-2">
-    <i class="bi bi-emoji-smile fs-1"></i>
-  </div>
-  <span class="fs-3 fw-bold d-inline-flex align-items-center" >
-    <span data-purecounter-start="0" data-purecounter-end="95" data-purecounter-duration="1" class="purecounter me-1" style ="margin-top: 8px;margin-left: 10px;"></span>%
-  </span>
-  <p class="mt-2">Happy Clients</p>
-</div>
+      <div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="150">
+        <div class="icon-wrapper"><i class="bi bi-emoji-smile"></i></div>
+        <div class="stat-value">
+          <span class="purecounter" data-purecounter-start="0" data-purecounter-end="95" data-purecounter-duration="1">95</span><span class="stat-suffix">%</span>
+        </div>
+        <p class="stat-label">Happy Clients</p>
+      </div>
 
+      <div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="200">
+        <div class="icon-wrapper"><i class="bi bi-journal-richtext"></i></div>
+        <div class="stat-value">
+          <span class="purecounter" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1">10</span><span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label">Projects</p>
+      </div>
 
-     <!-- Projects -->
-<div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="200">
-  <div class="icon-wrapper mb-2">
-    <i class="bi bi-journal-richtext fs-1"></i>
-  </div>
-  <span class="fs-3 fw-bold d-inline-flex align-items-center">
-    <span class="purecounter me-1" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1"></span>
-  </span>
-  <p class="mt-2">Projects</p>
-</div>
-
-<!-- Hours Of Support -->
-<div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="250">
-  <div class="icon-wrapper mb-2">
-    <i class="bi bi-headset fs-1"></i>
-  </div>
-  <span class="fs-3 fw-bold d-inline-flex align-items-center">
-    24<span class="ms-1">/7</span>
-  </span>
-  <p class="mt-2">Hours Of Support</p>
-</div>
-
-<!-- Hard Workers
-<div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="300">
-  <div class="icon-wrapper mb-2">
-    <i class="bi bi-people fs-1"></i>
-  </div>
-  <span class="fs-3 fw-bold d-inline-flex align-items-center">
-    <span class="purecounter me-1" data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"></span>
-  </span>
-  <p class="mt-2">Hard Workers</p>
-</div> -->
-
+      <div class="stats-item text-center" data-aos="zoom-in" data-aos-delay="250">
+        <div class="icon-wrapper"><i class="bi bi-headset"></i></div>
+        <div class="stat-value">
+          <span class="stat-num">24</span><span class="stat-suffix">/7</span>
+        </div>
+        <p class="stat-label">Hours Of Support</p>
+      </div>
 
     </div>
   </div>
@@ -762,6 +810,7 @@
           </div>
         </div>
         <div class="col-lg-9 col-12">
+          <div class="portfolio-collapse" id="portfolioCollapse">
           <div class="row gy-4 portfolio-container isotope-container" data-aos="fade-up" data-aos-delay="200">
             <div class="col-lg-6 col-md-6 col-12 portfolio-item isotope-item filter-web">
               <div class="portfolio-wrap">
@@ -1007,6 +1056,13 @@
             </div>
             
           </div>
+          </div>
+          <div class="portfolio-more-wrap" id="portfolioMoreWrap">
+            <button type="button" class="portfolio-more-btn" id="portfolioMoreBtn" aria-expanded="false">
+              <span class="label">Show more</span>
+              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1238,6 +1294,53 @@
 
   <!-- Main JS File -->
   <script src="https://bootstrapmade.com/content/demo/SnapFolio/assets/js/main.js"></script>
+
+  <!-- Portfolio "Show more" toggle -->
+  <script>
+    (function () {
+      var collapse = document.getElementById('portfolioCollapse');
+      var wrap = document.getElementById('portfolioMoreWrap');
+      var btn = document.getElementById('portfolioMoreBtn');
+      if (!collapse || !wrap || !btn) return;
+
+      var label = btn.querySelector('.label');
+      var section = document.getElementById('portfolio');
+      var COLLAPSED = 900; // keep in sync with .portfolio-collapse max-height
+      var mode = 'collapsed'; // tracks the user's intent
+
+      function fullHeight() {
+        var grid = collapse.querySelector('.isotope-container');
+        return grid ? grid.offsetHeight : collapse.scrollHeight;
+      }
+      function overflowing() { return fullHeight() > COLLAPSED + 60; }
+
+      function render() {
+        var expand = (mode === 'expanded') || !overflowing();
+        collapse.classList.toggle('expanded', expand);
+        wrap.style.display = overflowing() ? '' : 'none';
+        var open = (mode === 'expanded');
+        btn.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        label.textContent = open ? 'Show less' : 'Show more';
+      }
+
+      btn.addEventListener('click', function () {
+        mode = (mode === 'expanded') ? 'collapsed' : 'expanded';
+        render();
+        if (mode === 'collapsed' && section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      // Recompute once the masonry layout settles, when a filter is clicked, and on resize.
+      window.addEventListener('load', function () { setTimeout(render, 400); });
+      document.querySelectorAll('.portfolio-filters li').forEach(function (f) {
+        f.addEventListener('click', function () { setTimeout(render, 500); });
+      });
+      var t;
+      window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(render, 200); });
+    })();
+  </script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"950a3e23ab23fd0e","version":"2025.6.2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"68c5ca450bae485a842ff76066d69420","b":1}' crossorigin="anonymous"></script>
 </body>
